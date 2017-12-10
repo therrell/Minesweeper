@@ -47,7 +47,7 @@ public class Minesweeper {
 			System.out.println("This should never print");
 		}
 		
-
+		
 	}
 
 }

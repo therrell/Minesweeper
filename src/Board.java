@@ -12,6 +12,7 @@ public class Board {
 		this.bombPer = b;
 		gameBoard = new int[s][s];
 		displayBoard = new char[s][s];
+		numberOfBombs = (int)(bombPer * gameBoard.length * gameBoard.length);
 	}
 	
 	
@@ -19,13 +20,14 @@ public class Board {
 	public void generate() {
 		//randomly place bombs on the map with bombPer % of the board being covered
 		double check = 1;
-		numberOfBombs = (int)(bombPer * gameBoard.length * gameBoard.length);
-		for (int m = 0; m < numberOfBombs; m++) {
+		int m = 0;
+		while (m < numberOfBombs) {
 			for (int i = 0; i < gameBoard.length; i++) {
 				for (int j = 0; j < gameBoard.length; j++) {
 					check = Math.random();
 					if (check < bombPer && gameBoard[i][j] != 9) {
-						gameBoard[i][j] = 9;						
+						gameBoard[i][j] = 9;		
+						m++;
 					}
 				}
 			}
@@ -71,17 +73,19 @@ public class Board {
 		
 	}
 
-
-
 	public void flag(int cRow, int cCol) {
 		// TODO Auto-generated method stub
+		displayBoard[cRow][cCol] = 'F';
 		
 	}
 
-
-
 	public void display() {
 		// TODO Auto-generated method stub
-		
+		for (int i = 0; i < displayBoard.length; i++) {
+			for (int j = 0; j < displayBoard[i].length; j++) {
+				System.out.print(displayBoard[i][j] + " ");
+			}
+			System.out.println();
+		}
 	}
 }
