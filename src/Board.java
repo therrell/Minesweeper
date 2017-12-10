@@ -50,4 +50,25 @@ public class Board {
 		
 		return false;
 	}
+
+
+
+	public void check(int cRow, int cCol) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	public void flag(int cRow, int cCol) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	public void display() {
+		// TODO Auto-generated method stub
+		
+	}
 }
