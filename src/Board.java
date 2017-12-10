@@ -6,6 +6,7 @@ public class Board {
 	private int[][] gameBoard;
 	private char[][] displayBoard;
 	private int numberOfBombs;
+	private boolean gameOver;
 	
 	public Board(int s, double b) {
 		this.size = s;
@@ -13,6 +14,7 @@ public class Board {
 		gameBoard = new int[s][s];
 		displayBoard = new char[s][s];
 		numberOfBombs = (int)(bombPer * gameBoard.length * gameBoard.length);
+		gameOver = false;
 	}
 	
 	
@@ -62,8 +64,7 @@ public class Board {
 	
 	public boolean checkLose() {
 		//check to see if a bomb has been hit
-		
-		return false;
+		return gameOver;
 	}
 
 
@@ -71,16 +72,18 @@ public class Board {
 	public void check(int cRow, int cCol) {
 		// TODO Auto-generated method stub
 		
+		if (gameBoard[cRow][cCol] == 9) {
+			gameOver = true;
+		}
+		
 	}
 
 	public void flag(int cRow, int cCol) {
-		// TODO Auto-generated method stub
 		displayBoard[cRow][cCol] = 'F';
 		
 	}
 
 	public void display() {
-		// TODO Auto-generated method stub
 		for (int i = 0; i < displayBoard.length; i++) {
 			for (int j = 0; j < displayBoard[i].length; j++) {
 				System.out.print(displayBoard[i][j] + " ");
