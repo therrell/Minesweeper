@@ -5,11 +5,13 @@ public class Board {
 	private double bombPer;
 	private int[][] gameBoard;
 	private char[][] displayBoard;
+	private int numberOfBombs;
 	
 	public Board(int s, double b) {
 		this.size = s;
 		this.bombPer = b;
 		gameBoard = new int[s][s];
+		displayBoard = new char[s][s];
 	}
 	
 	
@@ -17,7 +19,7 @@ public class Board {
 	public void generate() {
 		//randomly place bombs on the map with bombPer % of the board being covered
 		double check = 1;
-		int numberOfBombs = (int)(bombPer * gameBoard.length * gameBoard.length);
+		numberOfBombs = (int)(bombPer * gameBoard.length * gameBoard.length);
 		for (int m = 0; m < numberOfBombs; m++) {
 			for (int i = 0; i < gameBoard.length; i++) {
 				for (int j = 0; j < gameBoard.length; j++) {
@@ -41,8 +43,19 @@ public class Board {
 	
 	public boolean checkWin() {
 		//check to see if all bombs have been flagged
-		
-		return false;
+		int count = 0;
+		for (int i = 0; i < gameBoard.length; i++) {
+			for (int j = 0; j < gameBoard.length; j++) {
+				if (displayBoard[i][j] == '*' || displayBoard[i][j] == 'F') {
+					count++;
+				}
+			}
+		}
+		if (count == numberOfBombs) {
+		return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public boolean checkLose() {
