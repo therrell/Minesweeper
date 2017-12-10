@@ -4,6 +4,7 @@ public class Board {
 	private int size;
 	private int bombPer;
 	private int[][] gameBoard;
+	private char[][] displayBoard;
 	
 	public Board(int s, int b) {
 		this.size = s;
@@ -15,6 +16,23 @@ public class Board {
 
 	public void generate() {
 		//randomly place bombs on the map with bombPer % of the board being covered
+		double check = 1;
+		int numberOfBombs = (int)(bombPer * gameBoard.length * gameBoard.length);
+		for (int m = 0; m < numberOfBombs; m++) {
+			for (int i = 0; i < gameBoard.length; i++) {
+				for (int j = 0; j < gameBoard.length; j++) {
+					check = Math.random();
+					if (check < bombPer && gameBoard[i][j] != 9) {
+						gameBoard[i][j] = 9;						
+					}
+				}
+			}
+		}
+		for (int i = 0; i < gameBoard.length; i++) {
+			for (int j = 0; j < gameBoard.length; j++) {
+				displayBoard[i][j] = '*';
+			}
+		}
 	}
 
 	public void reset() {
