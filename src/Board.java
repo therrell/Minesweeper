@@ -2,11 +2,11 @@
 public class Board {
 	
 	private int size;
-	private int bombPer;
+	private double bombPer;
 	private int[][] gameBoard;
 	private char[][] displayBoard;
 	
-	public Board(int s, int b) {
+	public Board(int s, double b) {
 		this.size = s;
 		this.bombPer = b;
 		gameBoard = new int[s][s];
