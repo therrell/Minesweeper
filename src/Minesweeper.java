@@ -4,7 +4,7 @@ public class Minesweeper {
 
 	public static void main(String[] args) {
 		int size = 10;
-		int perc = 30;
+		double perc = 0.20;
 		Board board = new Board(size, perc);
 		Scanner sc = new Scanner(System.in);
 		
