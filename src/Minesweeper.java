@@ -9,7 +9,7 @@ public class Minesweeper {
 		Scanner sc = new Scanner(System.in);
 		
 		board.generate();
-		System.out.println("Enter the row, column, and move you would like to make separated by a space");
+		System.out.println("Enter the move, row, and column you would like to perform");
 		System.out.println("Possible moves: \"flag\" and \"check\"");
 		System.out.println("Find all non-bomb spaces to win!");
 		
@@ -21,12 +21,12 @@ public class Minesweeper {
 			
 			
 			try {
-			cRow = Integer.parseInt(move[0]);
-			cCol = Integer.parseInt(move[1]);
+			cRow = Integer.parseInt(move[1]);
+			cCol = Integer.parseInt(move[2]);
 			
-			if (move[2].equals("flag")) {
+			if (move[0].equals("flag")) {
 				board.flag(cRow,cCol);
-			} else if (move[2].equals("check")) {
+			} else if (move[0].equals("check")) {
 				board.check(cRow,cCol);
 			} else {
 				System.out.println("Invalid move");
