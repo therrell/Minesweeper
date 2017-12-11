@@ -1,3 +1,4 @@
+import javax.swing.plaf.synth.SynthSeparatorUI;
 
 public class Board {
 	
@@ -21,6 +22,7 @@ public class Board {
 
 	public void generate() {
 		//randomly place bombs on the map with bombPer % of the board being covered
+		gameOver = false;
 		double check = 1;
 		int m = 0;
 		while (m < numberOfBombs) {
@@ -77,10 +79,10 @@ public class Board {
 	}
 	
 	public boolean checkWin() {
-		//check to see if all bombs have been flagged
+		//check to see if all bombs have been flagged or all other spaces selected
 		int count = 0;
-		for (int i = 0; i < gameBoard.length; i++) {
-			for (int j = 0; j < gameBoard.length; j++) {
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
 				if (displayBoard[i][j] == '*' || displayBoard[i][j] == 'F') {
 					count++;
 				}
@@ -95,6 +97,17 @@ public class Board {
 	
 	public boolean checkLose() {
 		//check to see if a bomb has been hit
+		if (gameOver) {
+			for (int i = 0; i < size; i++) {
+				for (int j = 0; j < size; j++) {
+					if (gameBoard[i][j] == 9) {
+						displayBoard[i][j] = 'X';
+					} else {
+						displayBoard[i][j] = Character.forDigit(gameBoard[i][j], 10);
+					}
+				}
+			}
+		}
 		return gameOver;
 	}
 
@@ -130,12 +143,22 @@ public class Board {
 	}
 
 	public void flag(int row, int col) {
-		displayBoard[row][col] = 'F';
+		if (displayBoard[row][col] == '*') {
+			displayBoard[row][col] = 'F';
+		} else if (displayBoard[row][col] == 'F') {
+			displayBoard[row][col] = '*';
+		}
 		
 	}
 
 	public void display() {
+		System.out.print("  ");
+		for (int i = 0; i < size; i++) {
+			System.out.print(i + " ");
+		}
+		System.out.println();
 		for (int i = 0; i < displayBoard.length; i++) {
+			System.out.print(i + " ");
 			for (int j = 0; j < displayBoard[i].length; j++) {
 				System.out.print(displayBoard[i][j] + " ");
 			}
