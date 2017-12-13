@@ -8,18 +8,20 @@ public class Minesweeper {
 		Board board = new Board(size, perc);
 		Scanner sc = new Scanner(System.in);
 		boolean keepGoing = true;
+		int losses = 0;
+		int wins = 0;
 		
 		board.generate();
 		System.out.println("Enter the move, row, and column you would like to perform");
 		System.out.println("Possible moves: \"flag\" and \"check\"");
 		System.out.println("Find all non-bomb spaces to win!");
+		
 		while (keepGoing) {
 			while (!(board.checkLose() || board.checkWin())) {
 				board.display();
 				String[] move = sc.nextLine().split(" ");
 				
 				int cRow, cCol;
-				
 				
 				try {
 				cRow = Integer.parseInt(move[1]);
@@ -43,16 +45,19 @@ public class Minesweeper {
 			if (board.checkWin()) {
 				board.display();
 				System.out.println("You win!");
+				wins++;
 			} else if (board.checkLose()) {
 				board.display();
 				System.out.println("You lose.");
+				losses++;
 			} else {
 				System.out.println("This should never print");
 			}
 			
+			System.out.println("Current Score: " + wins + " wins and " + losses + " losses.");
 			System.out.println("quit, new game, or reset");
-			
 			String comm = sc.nextLine();
+			
 			if (comm.equals("quit") ) {
 				keepGoing = false;
 			} else if (comm.equals("new game")) {
@@ -62,5 +67,4 @@ public class Minesweeper {
 			}
 		}
 	}
-
 }

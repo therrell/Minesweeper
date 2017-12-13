@@ -1,14 +1,16 @@
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 public class Board {
 	
+	//variable declarations
 	private int size;
 	private double bombPer;
 	private int[][] gameBoard;
 	private char[][] displayBoard;
 	private int numberOfBombs;
 	private boolean gameOver;
+	private int win;
+	private int loss;
 	
+	//constructor
 	public Board(int s, double b) {
 		this.size = s;
 		this.bombPer = b;
@@ -18,10 +20,10 @@ public class Board {
 		this.gameOver = false;
 	}
 	
-	
-
+	//randomly place bombs on the map with bombPer % of the board being covered by bombs
+	//bombs have a value of 9
+	//otherwise sets the number of bombs in adjacent tiles as the value
 	public void generate() {
-		//randomly place bombs on the map with bombPer % of the board being covered
 		gameOver = false;
 		double check = 1;
 		int m = 0;
@@ -51,9 +53,9 @@ public class Board {
 		}
 	}
 	
+	//calculate the "weight" of each tile or the number of adjacent bombs
 	private int getWeight(int row, int col) {
 		int count = 0;
-		
 		for (int i = -1; i < 2; i++) {
 			for (int j = -1; j < 2; j++) {
 				if (row + i >= 0 && row + i < size 
@@ -61,15 +63,13 @@ public class Board {
 					&& gameBoard[row + i][col + j] == 9) {
 					count++;
 				}
-				
 			}
 		}
-		
 		return count;
 	}
 
+	//resets current game maintaining all bomb positions
 	public void reset() {
-		//resets current game
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				displayBoard[i][j] = '*';
@@ -78,8 +78,9 @@ public class Board {
 		this.gameOver = false;
 	}
 	
+	//check to see if all bombs have been flagged or all other spaces selected
+	//if yes, the game is won
 	public boolean checkWin() {
-		//check to see if all bombs have been flagged or all other spaces selected
 		int count = 0;
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
@@ -95,8 +96,8 @@ public class Board {
 		}
 	}
 	
+	//check to see if a bomb has been hit
 	public boolean checkLose() {
-		//check to see if a bomb has been hit
 		if (gameOver) {
 			for (int i = 0; i < size; i++) {
 				for (int j = 0; j < size; j++) {
@@ -112,10 +113,10 @@ public class Board {
 	}
 
 
-
+	//checks the selected space to see if it is a bomb
+	//game ends if it is a bomb
+	//displays weight if it is not a bomb
 	public void check(int row, int col) {
-		//checks the selected space to see if it is a bomb
-		//displays number if it is not a bomb
 		if (gameBoard[row][col] == 9) {
 			this.displayBoard[row][col] = 'X';
 			this.gameOver = true;
@@ -129,8 +130,9 @@ public class Board {
 		
 	}
 	
+	//checks the spots surrounding any 0 tile found
+	//eliminates wasted moves surrounding 0 tiles
 	public void printNeighbors(int row, int col) {
-		//checks the spots surrounding any 0 tile found
 		for (int i = -1; i < 2; i++) {
 			for (int j = -1; j < 2; j++) {
 				if (row + i >= 0 && row + i < size 
@@ -142,6 +144,8 @@ public class Board {
 		}
 	}
 
+	//mark a spot as a bomb
+	//not needed to win but helpful in solving the game
 	public void flag(int row, int col) {
 		if (displayBoard[row][col] == '*') {
 			displayBoard[row][col] = 'F';
@@ -151,6 +155,8 @@ public class Board {
 		
 	}
 
+	//displays the checked tiles' weights
+	//shows asterisks for unchecked spaces
 	public void display() {
 		System.out.print("  ");
 		for (int i = 0; i < size; i++) {
